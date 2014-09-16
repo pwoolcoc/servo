@@ -8,10 +8,9 @@
 #![deny(unused_imports, unused_variable)]
 
 extern crate geom;
-extern crate servo_msg = "msg";
-extern crate servo_net = "net";
+extern crate "msg" as servo_msg;
+extern crate "net" as servo_net;
 extern crate url;
-extern crate std;
 extern crate serialize;
 
 // This module contains traits in script used generically

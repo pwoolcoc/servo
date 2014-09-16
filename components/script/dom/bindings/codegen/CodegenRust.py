@@ -1757,6 +1757,7 @@ class CGAbstractMethod(CGThing):
             decorators.append('#[inline(always)]')
 
         if self.extern:
+            decorators.append('unsafe')
             decorators.append('extern')
 
         if self.pub:
@@ -4543,7 +4544,6 @@ class CGBindingRoot(CGThing):
             'dom::bindings::conversions::{Default, Empty}',
             'dom::bindings::codegen::*',
             'dom::bindings::codegen::Bindings::*',
-            'dom::bindings::codegen::RegisterBindings',
             'dom::bindings::codegen::UnionTypes::*',
             'dom::bindings::error::{FailureUnknown, Fallible, Error, ErrorResult}',
             'dom::bindings::error::throw_dom_exception',
@@ -5487,12 +5487,12 @@ class GlobalGenRoots():
   }
 
   #[inline(always)]
-  fn from_ref<'a, 'b, T: ${fromBound}>(derived: &'a JSRef<'b, T>) -> &'a JSRef<'b, Self> {
+  fn from_ref<'a, 'b, T: ${fromBound}+Reflectable>(derived: &'a JSRef<'b, T>) -> &'a JSRef<'b, Self> {
     unsafe { derived.transmute() }
   }
 
   #[inline(always)]
-  fn from_mut_ref<'a, 'b, T: ${fromBound}>(derived: &'a mut JSRef<'b, T>) -> &'a mut JSRef<'b, Self> {
+  fn from_mut_ref<'a, 'b, T: ${fromBound}+Reflectable>(derived: &'a mut JSRef<'b, T>) -> &'a mut JSRef<'b, Self> {
     unsafe { derived.transmute_mut() }
   }
 
